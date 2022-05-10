@@ -2,7 +2,7 @@ from random import randrange
 
 def f(x):
     return abs(5000-sum(x))
-def solve(c,li):
+def solve(a,c,li):
     for _ in range(c):
         li.sort(key=lambda x:(x[-1]))
 
@@ -17,14 +17,16 @@ def solve(c,li):
         newgene2[index]=newli[0][index]
         newgene2[-1]=f(newgene2[:-1])
 
+        #돌연변이
+        rand=randrange(1,60)
+        if(rand==1):
+            newgene1[randrange(0,len(newgene1))]=a[randrange(0,len(li))]
+        if(rand==2):
+            newgene2[randrange(0,len(newgene1))]=a[randrange(0,len(li))]
+
         newli.append(newgene1)
         newli.append(newgene2)
-
-        #돌연변이
-        rand=randrange(1,30)
-        if(rand==1):
-            newgene1[index]=li[randrange(0,len(li))]
-
+        
         li=newli
     li.sort(key=lambda x:(x[-1]))
     return li
@@ -39,4 +41,4 @@ for i in range(len(a)):
 for j in range(len(li)):
     li[j].append(f(li[j]))
 c=int(input("반복 횟수를 입력하세요: ")) # 반복 횟수
-print(solve(c,li)[0])
+print(solve(a,c,li)[0])
