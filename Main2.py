@@ -1,12 +1,19 @@
+from bisect import bisect
 from random import randrange
 
+def roulette(li):
+    sumli=[0]
+    maxli=max([i[-1] for i in li])
+    for i in li:
+        sumli.append(sumli[-1]+i[-1])
+    x1=bisect(sumli,randrange(1,sumli[-1]))
+    x2=bisect(sumli,randrange(1,sumli[-1]))
+    return [li[x1-1],li[x2-1]] 
 def f(x):
     return abs(5000-sum(x))
 def solve(a,c,li):
     for _ in range(c):
-        li.sort(key=lambda x:(x[-1]))
-
-        newli=li[:2] # 새로운 리스트
+        newli=roulette(li) # 새로운 리스트
         index=randrange(0,len(li[0])-2) # 교환할 원소값 (무작위)
         index2=randrange(index+1,len(li[0])-1)
 
@@ -19,7 +26,7 @@ def solve(a,c,li):
         newgene2[-1]=f(newgene2[:-1])
 
         #돌연변이
-        rand=randrange(1,60)
+        rand=randrange(1,30)
         if(rand==1):
             newgene1[randrange(0,len(newgene1))]=a[randrange(0,len(li))]
         if(rand==2):
@@ -33,11 +40,11 @@ def solve(a,c,li):
     return li
 
 #리스트
-a=[1199, 1737, 1129, 1089, 1549, 1535, 1185, 1816, 1350, 1714, 1816, 1714, 1173, 1643, 1610]
+a=[1199, 1737, 1129, 1089, 1549, 1535, 1185, 1816, 1350, 1714, 1816, 1714, 1173, 1643, 1610, 1600]
 #유전자 초기 상태 +적합도
 li=[]
 for i in range(len(a)):
-    if(i%3==0):li.append([a[i]])
+    if(i%4==0):li.append([a[i]])
     else:li[-1].append(a[i])
 for j in range(len(li)):
     li[j].append(f(li[j]))
