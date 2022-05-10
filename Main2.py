@@ -7,14 +7,15 @@ def solve(a,c,li):
         li.sort(key=lambda x:(x[-1]))
 
         newli=li[:2] # 새로운 리스트
-        index=randrange(0,len(li[0])-1) # 교환할 원소값 (무작위)
-    
+        index=randrange(0,len(li[0])-2) # 교환할 원소값 (무작위)
+        index2=randrange(index+1,len(li[0])-1)
+
         newgene1=newli[0][:]
-        newgene1[index]=newli[1][index]
+        newgene1[index:index2]=newli[1][index:index2]
         newgene1[-1]=f(newgene1[:-1])
     
         newgene2=newli[1][:]
-        newgene2[index]=newli[0][index]
+        newgene2[index:index2]=newli[0][index:index2]
         newgene2[-1]=f(newgene2[:-1])
 
         #돌연변이
