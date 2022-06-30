@@ -10,7 +10,8 @@ def roulette(li):
     x2=bisect(sumli,randrange(1,sumli[-1]))
     return [li[x1-1],li[x2-1]] 
 def f(x):
-    return abs(5000-sum(x))
+    global a2
+    return abs(a2-sum(x))
 def solve(a,c,li):
     for _ in range(c):
         newli=roulette(li) # 새로운 리스트
@@ -40,11 +41,13 @@ def solve(a,c,li):
     return li
 
 #리스트
-a=[1199, 1737, 1129, 1089, 1549, 1535, 1185, 1816, 1350, 1714, 1816, 1714, 1173, 1643, 1610, 1600]
-#유전자 초기 상태 +적합도
+a=list(map(int,input().split()))
+a2=int(input('목표값(수의 합)을 입력해 주세요 : '))
+a3=int(input('수의 개수를 입력해 주세요 : '))
+#유전자 초기 상태 + 적합도
 li=[]
 for i in range(len(a)):
-    if(i%4==0):li.append([a[i]])
+    if(i%a3==0):li.append([a[i]])
     else:li[-1].append(a[i])
 for j in range(len(li)):
     li[j].append(f(li[j]))
